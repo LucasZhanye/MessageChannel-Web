@@ -17,5 +17,10 @@ export default defineConfig({
   ],
   build: {
     outDir: "../messagechannel/internal/pkg/web/static"
+  },
+  resolve: {
+    alias: {
+      '@': '/src/',
+    }
   }
 })
