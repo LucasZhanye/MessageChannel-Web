@@ -2,11 +2,9 @@
 import { reactive, ref } from 'vue'
 import { User, Lock} from '@element-plus/icons-vue'
 import { FormInstance, FormRules } from 'element-plus'
-// import { Login } from "@/utils/api/api"
 import type { IUserInfo } from "@/utils/api/model"
-import { useRouter } from 'vue-router';
-
-const router = useRouter()
+import {useUserStore} from '@/stores'
+import { useRouter } from 'vue-router'
 
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive<IUserInfo> ({
@@ -22,25 +20,22 @@ const rules = reactive<FormRules<IUserInfo>>({
   ]
 })
 
+const user = useUserStore()
+
+const router = useRouter()
+
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  await formEl.validate((valid, fields) => {
+
+  await formEl.validate((valid, _fields) => {
     if (valid) {
-
-      // Login(ruleForm).then((resp: any) => {
-      //   console.log("resp = ", resp)
-      // }).catch((err: any) => {
-      //   console.log("Err = ", err)
-      // })
-
-      alert(ruleForm)
-
-      router.push({
-        name: "Home"
+      user.login(ruleForm).then(() => {
+        router.push({"name": "Home"})
+      }).catch((error) => {
+        console.log("login fail:", error)
       })
-
     } else {
-      console.log('error submit!', fields)
+      ElMessage.error("Incorrect information entered")
     }
   })
 }
@@ -101,7 +96,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   width: 100vw;
 }
 
-.content {
+.login-container .content {
   width: 40%;
   height: 400px;
   display: flex;  /* let img and div display on the same line */
@@ -109,38 +104,38 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   background-color: rgba(200, 244, 248, 0.2);
 }
 
-.logo {
+.login-container .content .logo {
   flex-grow: 1;
   display: flex;
   align-items: center;
   border-right: 1px dashed rgba(11, 172, 187, 0.3);
 }
 
-.logo img {
+.login-container .content .logo img {
   width: 200px;
   height: 200px;
   margin: 0 auto;
 }
 
-.login {
+.login-container .content .login {
   flex-grow: 1;
   padding-left: 20px;
   padding-right: 20px;
   text-align: center;
 }
 
-.login .title {
+.login-container .content .login .title {
   margin-top: 40px;
   font-size: 30px;
   font-weight: bold;
 }
 
-.login .loginForm {
+.login-container .content .login .loginForm {
   padding-top: 30px;
   padding-bottom: 20px;
 }
 
-.login .loginForm .submit {
+.login-container .content .login .loginForm .submit {
   margin: 0 auto;
 }
 </style>

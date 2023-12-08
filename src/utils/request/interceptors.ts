@@ -3,7 +3,7 @@ import type { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } fr
 
 export interface HttpInterceptors {
     requestInterceptor?: (config :InternalAxiosRequestConfig) => InternalAxiosRequestConfig;
-    responseInterceptor?: (res :AxiosResponse) => AxiosResponse;
+    responseInterceptor?: (res :AxiosResponse) => any;
     responseInterceptorCatch?: (err :any) => any;
 }
 
