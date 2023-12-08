@@ -1,6 +1,6 @@
 <template>
   <div class="subscriptions-container">
-    <div class="filter-container" v-show="treeData.length > 0">
+    <div class="filter-container">
       <el-input v-model="search.topic_name" placeholder="topic name" clearable style="width: 400px;"></el-input>
       <el-input v-model="search.group_name" placeholder="group name" clearable style="width: 400px;"></el-input>
       <el-input v-model="search.identifie" placeholder="client identifie" clearable style="width: 400px;"></el-input>

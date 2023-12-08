@@ -1,6 +1,6 @@
 <template>
     <div class="clients-container">
-      <div class="filter-container" v-show="clientData.length > 0">
+      <div class="filter-container">
         <el-input v-model="clientIdentifie" placeholder="Input identifie" clearable style="width: 400px;"></el-input>
         <el-input v-model="clientAddress" placeholder="Input address" clearable style="width: 400px;"></el-input>
         <el-button @click="filterData" type="primary">Search</el-button> 
